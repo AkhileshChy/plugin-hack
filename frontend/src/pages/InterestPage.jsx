@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const options = [
   "History",
@@ -34,8 +35,10 @@ const InterestPage = () => {
     );
   };
 
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate("/");
     console.log("Selected Interests:", selectedOptions);
   };
 

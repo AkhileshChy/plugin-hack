@@ -1,18 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const SignupPage = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { signup } = useAuthStore();
+    const navigate = useNavigate(); // Import useNavigate
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Api call yahan aayega
+        signup({ name, email, password });
+        
         console.log("Name:", name);
         console.log("Email:", email);
         console.log("Password:", password);
-    }
+        
+        // Navigate to the '/interest' page after successful signup
+        navigate("/interest");
+    };
+
     return (
         <div className="relative flex items-center justify-center min-h-screen bg-gray-900 overflow-hidden">
             <div className="absolute inset-0 z-0">
@@ -72,19 +80,6 @@ const SignupPage = () => {
                         />
                     </div>
 
-                    {/* <div className="flex items-center justify-between">
-                        <label className="flex items-center text-sm text-gray-400">
-                            <input
-                                type="checkbox"
-                                className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
-                            />
-                            <span className="ml-2">Remember me</span>
-                        </label>
-                        <a href="#" className="text-sm text-blue-400 hover:text-blue-300">
-                            Forgot password?
-                        </a>
-                    </div> */}
-
                     <button
                         type="submit"
                         className="w-full px-4 py-3 text-sm font-bold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg shadow-md hover:from-blue-600 hover:to-purple-600 focus:ring-2 focus:ring-blue-300"
@@ -96,7 +91,7 @@ const SignupPage = () => {
                 <p className="mt-4 text-sm text-center text-gray-400">
                     Already have an account?{" "}
                     <Link
-                        to='/'
+                        to='/login'
                         className="font-medium text-blue-400 hover:text-blue-300"
                     >
                         Login

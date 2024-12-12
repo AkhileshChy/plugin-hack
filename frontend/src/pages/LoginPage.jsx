@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const { login } = useAuthStore();
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        login({ email, password });
         // Api call yahan aayega
         console.log("Email:", email);
         console.log("Password:", password);
